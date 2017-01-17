@@ -11,7 +11,7 @@ import App from './components/App'
 import MoviesPage from './containers/MoviesPage'
 import MoviesShow from './containers/MoviesShow'
 import MoviesNew from './containers/MoviesNew'
-import MoviesAbout from './components/MoviesAbout'
+// import MoviesAbout from './components/MoviesAbout'
 
 const store = createStore(rootReducer);
 
@@ -19,7 +19,10 @@ ReactDOM.render(
   (<Provider store={store} >
     <Router history={browserHistory} >
       <Route path="/" component={App} >
-        <Route path='/movies' component={MoviesPage} />
+        <Route path='/movies' component={MoviesPage}>
+          <Route path="/movies/new" component={MoviesNew} />
+          <Route path="/movies/:id" component={MoviesShow} />
+        </Route>
       </Route>
     </Router>
   </Provider>),
