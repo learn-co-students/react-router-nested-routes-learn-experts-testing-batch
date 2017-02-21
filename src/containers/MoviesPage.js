@@ -3,14 +3,21 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {fetchMovies} from '../actions'
-
+import MoviesAbout from '../components/MoviesAbout'
 import MoviesList from '../components/MoviesList';
 
 class MoviesPage extends Component {
+
+  componentDidMount(){
+    this.props.fetchMovies();
+  }
+
   render(){
     return(
       <div>
+        <MoviesAbout/>
         <MoviesList movies={this.props.movies} />
+        { this.props.children }
       </div>)
   }
 }
@@ -21,4 +28,10 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(MoviesPage);
+function mapDispatchToProps(dispatch){
+  return {
+    fetchMovies: bindActionCreators(fetchMovies, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesPage);

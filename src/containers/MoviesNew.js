@@ -5,42 +5,38 @@ import { bindActionCreators } from 'redux';
 
 class MoviesNew extends Component {
 
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
+  //
+  //   this.state = {
+  //     title: ''
+  //   };
+  // }
 
-    this.state = {
-      title: ''
-    };
-  }
 
-  handleOnSubmit(event) {
-    event.preventDefault();
-    this.props.addMovie(this.state);
-  }
-
-  handleOnChange(event) {
-    this.setState({
-      title: event.target.value
-    });
+  handleSubmit(e){
+    e.preventDefault();
+    const movie = {
+      title: this.refs.movieTitle.value
+    }
+    this.props.addMovie(movie);
+    this.refs.movieTitle.value = "";
+    browserHistory.push('/movies');
   }
 
   render(){
     return (
-      <form onSubmit={(event) => this.handleOnSubmit(event)} >
-        <input 
-          type="text" 
-          onChange={(event) => this.handleOnChange(event)} 
-          placeholder="Add a Movie" />
-        <input type="submit" value="Add Movie" />
+      <form onSubmit={this.handleSubmit.bind(this)} >
+        <input type="text" ref="movieTitle" placeholder="Add a Movie" />
       </form>
-    );
+    )
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch){
   return {
     addMovie: bindActionCreators(addMovie, dispatch)
-  };
+  }
 }
 
 export default connect(null, mapDispatchToProps)(MoviesNew)
