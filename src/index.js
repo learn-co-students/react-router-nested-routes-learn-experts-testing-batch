@@ -11,15 +11,18 @@ import MoviesNew from './containers/MoviesNew';
 import MoviesAbout from './components/MoviesAbout';
 import MoviesShow from './containers/MoviesShow'
 
-const initialState = {movies: [ { id: 1, title: 'A River Runs Through It' } ]}
 
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   (<Provider store={store} >
     <Router history={browserHistory} >
-      <Route path="/" component={App} />
-      <Route path='/movies' component={MoviesPage}/>
+      <Route path="/" component={App}>
+        <Route path='/movies' component={MoviesPage}>
+          <Route path="/movies/new" component={MoviesNew} />
+          <Route path="/movies/:id" component={MoviesShow} />
+        </Route>
+      </Route>
     </Router>
   </Provider>),
 document.getElementById('container'));

@@ -5,6 +5,7 @@ export default (props) => {
   return (
     <div>
       < NavBar title="Nested Routes!"/>
+      { props.children}
     </div>
   )
 }
